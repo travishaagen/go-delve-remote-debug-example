@@ -3,10 +3,15 @@ kind: Pod
 metadata:
   name: {{ template "fullname" . }}
   labels:
-    name: {{ template "fullname" . }}
+    app: {{ template "fullname" . }}
     component: webapp-go
 spec:
   containers:
-  - name: {{ template "fullname" . }}
-    image: "webapp-go:latest"
-    imagePullPolicy: Never
+    - name: {{ template "fullname" . }}
+      image: "webapp-go:latest"
+      imagePullPolicy: Never
+      ports:
+        - name: http
+          containerPort: 8080
+        - name: delve
+          containerPort: 2345

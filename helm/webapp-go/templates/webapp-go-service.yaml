@@ -7,11 +7,13 @@ spec:
   ports:
     - name: http
       port: 8080
-      targetPort: 8080
-      # nodePort: 30080
+      targetPort: http
+      nodePort: 30080
     - name: delve
       port: 2345
-      targetPort: 2345
-      # nodePort: 32345
+      targetPort: delve
+      nodePort: 32345
   selector:
-    name: {{ template "fullname" . }}
+    app: {{ template "fullname" . }}
+  # debugging might work better with sesssion affinity
+  sessionAffinity: ClientIP
