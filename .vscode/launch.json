@@ -18,7 +18,7 @@
             "program": "${workspaceRoot}",
             "env": {},
             "args": [],
-            "remotePath": "/go/src/github.com/lukehoban/webapp-go",
+            "remotePath": "/go/src/github.com/travishaagen/go-delve-remote-debug-example",
             "port": 2345, // Delve port
             "host": "localhost" // Delve host or IP address
         }
