@@ -1,12 +1,16 @@
 # Helm Chart for webapp-go
 
+Build the Docker image:
+
 ```bash
-eval $(minikube docker-env)
+# eval $(minikube docker-env)
 
 docker build -t webapp-go .
+```
 
-# kns temp
+Install the Helm Chart in a Kubernetes environment (e.g., Minikube):
 
+```bash
 # helm lint helm/webapp-go
 
 helm package helm/webapp-go
@@ -15,13 +19,29 @@ helm package helm/webapp-go
 
 helm install --name webapp-go webapp-go-0.1.0.tgz
 
-# kubectl exec -it webapp-go-5546fdf6fd-db8nm -- /bin/bash
-
-# kubectl logs -p webapp-go-5546fdf6fd-db8nm
-
 # helm del --purge webapp-go
+```
 
+Log output should indicate when the Delve server is running:
+
+```bash
+$ kubectl logs webapp-go-webapp-go
+
+API server listening at: [::]:2345
+```
+
+Use port forwarding to access the webapp and Delve port locally:
+
+```bash
 kubectl port-forward service/webapp-go-webapp-go 8080 2345
 ```
 
-[http://192.168.99.100:30080/edit/test](http://192.168.99.100:30080/edit/test)
+The application will not work until you connect a Delve debugger. This project
+includes an example `/.vscode/launch.json` file that can be used with Visual Studio Code.
+Within Visual Studio Code, launch debugging via the "Remote debug" launch profile.
+
+**NOTE:** You will need to define breakpoints before connecting the debugger.
+
+Visit the webapp:
+
+[http://localhost:8080/edit/test](http://localhost:8080/edit/test)
